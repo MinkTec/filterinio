@@ -1,11 +1,9 @@
-library filterinio_comparisons;
-
-import 'package:filterinio/src/types.dart';
+part of './comparisons.dart';
 
 typedef BinaryCompFunc<R extends S, T extends S, S extends Comparable<S>> = bool
     Function(R a, T b);
 
-enum BinaryComparison  {
+enum BinaryComparison implements ComparisonEnum {
   gt,
   geq,
   le,
@@ -13,16 +11,6 @@ enum BinaryComparison  {
   eq,
   neq,
   ;
-
-  @override
-  String get description => switch (this) {
-        BinaryComparison.gt => "greater",
-        BinaryComparison.geq => "greater or equal",
-        BinaryComparison.le => "less",
-        BinaryComparison.leq => "less or equal",
-        BinaryComparison.eq => "equal",
-        BinaryComparison.neq => "not equal",
-      };
 
   @override
   String get enumName => name;
@@ -37,16 +25,6 @@ enum BinaryComparison  {
             BinaryComparison.eq => (R a, T b) => a.compareTo(b) == 0,
             BinaryComparison.neq => (R a, T b) => a.compareTo(b) != 0,
           };
-
-  @override
-  String get label => switch (this) {
-        BinaryComparison.gt => ">",
-        BinaryComparison.geq => ">=",
-        BinaryComparison.le => "<",
-        BinaryComparison.leq => "<=",
-        BinaryComparison.eq => "==",
-        BinaryComparison.neq => "!=",
-      };
 
   Predicate<R> predicate<R extends S, T extends S, S extends Comparable<S>>(
       T reference) {

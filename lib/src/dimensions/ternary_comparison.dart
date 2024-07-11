@@ -1,4 +1,4 @@
-import '../comparisons/ternary.dart';
+import '../comparisons/comparisons.dart';
 import '../tree/nodes.dart';
 
 class TernaryComparableFilterDimension<T extends Comparable<T>>

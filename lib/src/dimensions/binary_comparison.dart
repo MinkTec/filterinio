@@ -1,5 +1,5 @@
 
-import '../comparisons/binary.dart';
+import '../comparisons/comparisons.dart';
 import '../tree/nodes.dart';
 
 class BinaryComparableFilterDimension<T extends S, S extends Comparable<S>>

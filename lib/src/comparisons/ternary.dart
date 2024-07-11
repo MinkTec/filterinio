@@ -1,23 +1,15 @@
-import 'package:filterinio/src/types.dart';
+part of 'comparisons.dart';
 
 typedef TernaryCompFunc<Q extends T, R extends T, S extends T,
         T extends Comparable<T>>
     = bool Function(Q a, R b, S c);
 
-enum TernaryComparison {
+enum TernaryComparison implements ComparisonEnum {
   inside,
   insideEq,
   outside,
   outsideEq,
   ;
-
-  @override
-  String get description => switch (this) {
-        TernaryComparison.inside => "between",
-        TernaryComparison.insideEq => "between or equal",
-        TernaryComparison.outside => "outside",
-        TernaryComparison.outsideEq => "outside or equal"
-      };
 
   @override
   String get enumName => name;
@@ -34,14 +26,6 @@ enum TernaryComparison {
             TernaryComparison.outsideEq => (Q a, R b, T c) =>
                 a.compareTo(b) <= 0 || a.compareTo(c) >= 0,
           };
-
-  @override
-  String get label => switch (this) {
-        TernaryComparison.inside => "< x <",
-        TernaryComparison.insideEq => "<= x <=",
-        TernaryComparison.outside => "> x <",
-        TernaryComparison.outsideEq => ">= x =<"
-      };
 
   Predicate<Q>
       predicate<Q extends S, R extends S, T extends S, S extends Comparable<S>>(
