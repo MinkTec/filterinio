@@ -1,10 +1,21 @@
-
-
 import '../connectives/binary.dart';
 import '../dimensions/truth.dart';
 import 'nodes.dart';
 
 class FilterTree {
+  FilterTree();
+
+  factory FilterTree.fromFilters(Iterable<FilterDimension> filters) {
+    final x = FilterTree()..setRootFilterDimension(filters.first);
+    for (var filter in filters.skip(1)) {
+      x.add(
+          operator: BinaryLogicalConnective.and,
+          dimension: filter,
+          sibling: filters.first);
+    }
+    return x;
+  }
+
   FilterTreeNode? root = TruthFilterDimension();
 
   final List<FilterDimension> _dimensions = [];

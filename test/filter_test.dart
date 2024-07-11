@@ -26,12 +26,12 @@ void main() {
           left: DateTime(2022),
           right: DateTime(2024));
 
-      final iterable = IterableComparable(
+      final iterable = IterableDimension(
         debugPrintId: "iter",
         reference: {1, 2, 3},
         comparison: IterableComparisons.subset,
       );
-      final iterable2 = IterableComparable(
+      final iterable2 = IterableDimension(
         debugPrintId: "iter2",
         reference: {1, 2, 3},
         comparison: IterableComparisons.strictSuperset,

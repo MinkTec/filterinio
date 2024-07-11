@@ -6,14 +6,14 @@ void main() {
     final ref = [1, 2, 5];
 
     test("disjoint", () {
-      final comp = IterableComparable(
+      final comp = IterableDimension(
           reference: ref, comparison: IterableComparisons.disjoint);
       expect(comp.evaluate([2]), false);
       expect(comp.evaluate([2489]), true);
     });
 
     test("subset", () {
-      final comp = IterableComparable(
+      final comp = IterableDimension(
           reference: ref, comparison: IterableComparisons.subset);
       expect(comp.evaluate([2]), true);
       expect(comp.evaluate([1, 2, 5]), true);
@@ -21,14 +21,14 @@ void main() {
     });
 
     test("superset", () {
-      final comp = IterableComparable(
+      final comp = IterableDimension(
           reference: ref, comparison: IterableComparisons.superset);
       expect(comp.evaluate([1, 2, 5]), true);
       expect(comp.evaluate([1, 2, 6, 7]), false);
     });
 
     test("strict superset", () {
-      final comp = IterableComparable(
+      final comp = IterableDimension(
         reference: ref,
         comparison: IterableComparisons.strictSuperset,
       );
@@ -39,7 +39,7 @@ void main() {
     });
 
     test("identical", () {
-      final comp = IterableComparable(
+      final comp = IterableDimension(
           reference: ref, comparison: IterableComparisons.identical);
       expect(comp.evaluate([1, 2, 5]), true);
       expect(comp.evaluate([1, 2, 6, 7]), false);
@@ -47,7 +47,7 @@ void main() {
     });
 
     test("intersecting", () {
-      final comp = IterableComparable(
+      final comp = IterableDimension(
           reference: ref, comparison: IterableComparisons.intersecting);
       expect(comp.evaluate([4, 7]), false);
       expect(comp.evaluate([1, 2, 5]), true);

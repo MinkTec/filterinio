@@ -10,3 +10,4 @@ export 'src/dimensions/truth.dart';
 export 'src/dimensions/binary_comparison.dart';
 export 'src/dimensions/ternary_comparison.dart';
 export 'src/dimensions/iterable.dart';
+export 'src/dimensions/brackets.dart';

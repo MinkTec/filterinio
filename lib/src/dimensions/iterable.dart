@@ -31,13 +31,13 @@ enum IterableComparisons {
       };
 }
 
-class IterableComparable<Iter extends Iterable<T>, T>
+class IterableDimension<Iter extends Iterable<T>, T>
     extends FilterDimension<Iter> {
   final IterableComparisons comparison;
 
   final Iter reference;
 
-  IterableComparable({
+  IterableDimension({
     super.debugPrintId = "iter",
     required this.reference,
     required this.comparison,
