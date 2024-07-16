@@ -32,7 +32,7 @@ sealed class FilterTreeNode {
   }
 }
 
-class OperatorTreeNode extends FilterTreeNode {
+final class OperatorTreeNode extends FilterTreeNode {
   BinaryLogicalConnective operator;
 
   FilterTreeNode left;

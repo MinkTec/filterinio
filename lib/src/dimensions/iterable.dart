@@ -1,4 +1,3 @@
-
 import '../tree/nodes.dart';
 import '../types.dart';
 
@@ -34,7 +33,6 @@ enum IterableComparison {
 class IterableDimension<Iter extends Iterable<T>, T>
     extends FilterDimension<Iter> {
   final IterableComparison comparison;
-
   final Iter reference;
 
   IterableDimension({
