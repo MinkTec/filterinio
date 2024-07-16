@@ -1,8 +1,5 @@
 import 'package:filterinio/filterinio.dart';
 
-const int _maxInteger = 0x7FFFFFFFFFFFFFFF;
-const int _minInteger = -0x8000000000000000;
-
 mixin Transformer<A, B> {
   A Function(B b) get from;
   B Function(A a) get to;
@@ -40,11 +37,14 @@ class Bracket<T extends num> implements Comparable<Bracket> {
     assert(lower < upper);
   }
 
+  static const int maxInt = 0x7FFFFFFFFFFFFFFF;
+  static const int minInt = -0x8000000000000000;
+
   @override
   String toString() {
-    if (lower == _minInteger || lower == double.negativeInfinity) {
+    if (lower == minInt || lower == double.negativeInfinity) {
       return "< ${(upper + 1).toStringAsFixed(0)}";
-    } else if (upper == _maxInteger || upper == double.infinity) {
+    } else if (upper == maxInt || upper == double.infinity) {
       return "> ${(lower - 1).toStringAsFixed(0)}";
     } else {
       return "${lower.toStringAsFixed(0)} - ${upper.toStringAsFixed(0)}";
@@ -63,6 +63,15 @@ class Bracket<T extends num> implements Comparable<Bracket> {
   }
 
   double get center => (lower - (upper - lower) / 2);
+
+  @override
+  bool operator ==(Object other) {
+    if (other is! Bracket) return false;
+    return this.lower == other.lower && this.upper == other.upper;
+  }
+
+  @override
+  int get hashCode => this.lower.hashCode ^ this.upper.hashCode;
 }
 
 class TransformerBracket<T, S extends num> extends Bracket<S>
@@ -108,11 +117,11 @@ class BracketRange<S extends num> {
 
   Iterable<Bracket<S>> get _brackets sync* {
     try {
-      yield Bracket<S>(_minInteger as S, (min) - 1 as S);
+      yield Bracket<S>(Bracket.minInt as S, (min) - 1 as S);
       for (S i = min; i < max; i = i + stepSize as S) {
         yield Bracket<S>(i, i + (stepSize) - 1 as S);
       }
-      yield Bracket<S>((max) + 1 as S, _maxInteger as S);
+      yield Bracket<S>((max) + 1 as S, Bracket.maxInt as S);
     } catch (_) {
       yield Bracket<S>(double.negativeInfinity as S, min);
       for (S i = min; i < max; i = i + stepSize as S) {

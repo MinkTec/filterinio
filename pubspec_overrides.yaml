@@ -1,4 +1,0 @@
-# melos_managed_dependency_overrides: mink_dart_utils
-dependency_overrides:
-  mink_dart_utils:
-    path: ../mink_utils/packages/mink_dart_utils

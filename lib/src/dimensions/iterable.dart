@@ -2,7 +2,7 @@
 import '../tree/nodes.dart';
 import '../types.dart';
 
-enum IterableComparisons {
+enum IterableComparison {
   intersecting,
   disjoint,
   subset,
@@ -13,19 +13,19 @@ enum IterableComparisons {
 
   Predicate<Iter> predicate<Iter extends Iterable<T>, T>(Iter reference) =>
       switch (this) {
-        IterableComparisons.intersecting => (Iter t) =>
+        IterableComparison.intersecting => (Iter t) =>
             {...t}.intersection({...reference}).isNotEmpty,
-        IterableComparisons.disjoint => (Iter t) =>
+        IterableComparison.disjoint => (Iter t) =>
             {...t}.intersection({...reference}).isEmpty,
-        IterableComparisons.subset => (Iter t) =>
+        IterableComparison.subset => (Iter t) =>
             t.any((x) => reference.contains(x)) &&
             !t.any((x) => !reference.contains(x)),
-        IterableComparisons.superset => (Iter t) =>
+        IterableComparison.superset => (Iter t) =>
             t.every((x) => reference.contains(x)),
-        IterableComparisons.strictSuperset => (Iter t) =>
-            IterableComparisons.subset.predicate(reference)(t) &&
-            !IterableComparisons.identical.predicate(reference)(t),
-        IterableComparisons.identical => (Iter t) =>
+        IterableComparison.strictSuperset => (Iter t) =>
+            IterableComparison.subset.predicate(reference)(t) &&
+            !IterableComparison.identical.predicate(reference)(t),
+        IterableComparison.identical => (Iter t) =>
             t.length == reference.length &&
             {...t}.intersection({...reference}).length == reference.length,
       };
@@ -33,7 +33,7 @@ enum IterableComparisons {
 
 class IterableDimension<Iter extends Iterable<T>, T>
     extends FilterDimension<Iter> {
-  final IterableComparisons comparison;
+  final IterableComparison comparison;
 
   final Iter reference;
 

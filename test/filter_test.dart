@@ -29,12 +29,12 @@ void main() {
       final iterable = IterableDimension(
         debugPrintId: "iter",
         reference: {1, 2, 3},
-        comparison: IterableComparisons.subset,
+        comparison: IterableComparison.subset,
       );
       final iterable2 = IterableDimension(
         debugPrintId: "iter2",
         reference: {1, 2, 3},
-        comparison: IterableComparisons.strictSuperset,
+        comparison: IterableComparison.strictSuperset,
       );
 
       x.add(

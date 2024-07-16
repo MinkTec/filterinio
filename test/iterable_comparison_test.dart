@@ -7,14 +7,14 @@ void main() {
 
     test("disjoint", () {
       final comp = IterableDimension(
-          reference: ref, comparison: IterableComparisons.disjoint);
+          reference: ref, comparison: IterableComparison.disjoint);
       expect(comp.evaluate([2]), false);
       expect(comp.evaluate([2489]), true);
     });
 
     test("subset", () {
       final comp = IterableDimension(
-          reference: ref, comparison: IterableComparisons.subset);
+          reference: ref, comparison: IterableComparison.subset);
       expect(comp.evaluate([2]), true);
       expect(comp.evaluate([1, 2, 5]), true);
       expect(comp.evaluate([2489]), false);
@@ -22,7 +22,7 @@ void main() {
 
     test("superset", () {
       final comp = IterableDimension(
-          reference: ref, comparison: IterableComparisons.superset);
+          reference: ref, comparison: IterableComparison.superset);
       expect(comp.evaluate([1, 2, 5]), true);
       expect(comp.evaluate([1, 2, 6, 7]), false);
     });
@@ -30,7 +30,7 @@ void main() {
     test("strict superset", () {
       final comp = IterableDimension(
         reference: ref,
-        comparison: IterableComparisons.strictSuperset,
+        comparison: IterableComparison.strictSuperset,
       );
       expect(comp.evaluate([1, 2]), true);
       expect(comp.evaluate([1, 2, 5]), false);
@@ -40,7 +40,7 @@ void main() {
 
     test("identical", () {
       final comp = IterableDimension(
-          reference: ref, comparison: IterableComparisons.identical);
+          reference: ref, comparison: IterableComparison.identical);
       expect(comp.evaluate([1, 2, 5]), true);
       expect(comp.evaluate([1, 2, 6, 7]), false);
       expect(comp.evaluate([1, 2, 5, 7]), false);
@@ -48,7 +48,7 @@ void main() {
 
     test("intersecting", () {
       final comp = IterableDimension(
-          reference: ref, comparison: IterableComparisons.intersecting);
+          reference: ref, comparison: IterableComparison.intersecting);
       expect(comp.evaluate([4, 7]), false);
       expect(comp.evaluate([1, 2, 5]), true);
       expect(comp.evaluate([1, 2, 6, 7]), true);
