@@ -3,40 +3,40 @@ import 'package:test/test.dart';
 
 void main() {
   group('filterinio', () {
-    test('tree', () {
-      final x = FilterTree();
+    final x = FilterTree();
 
-      final first = BinaryComparableFilterDimension<int, num>(
-        debugPrintId: "first",
-        comparison: BinaryComparison.gt,
-        reference: 0,
-      );
+    final first = BinaryComparableFilterDimension<int, num>(
+      debugPrintId: "first",
+      comparison: BinaryComparison.gt,
+      reference: 0,
+    );
 
-      x.setRootFilterDimension(first);
+    x.setRootFilterDimension(first);
 
-      final second = BinaryComparableFilterDimension<int, num>(
-        debugPrintId: "second",
-        comparison: BinaryComparison.le,
-        reference: 2,
-      );
+    final second = BinaryComparableFilterDimension<int, num>(
+      debugPrintId: "second",
+      comparison: BinaryComparison.le,
+      reference: 2,
+    );
 
-      final timeFilter = TernaryComparableFilterDimension(
-          debugPrintId: "time",
-          comparison: TernaryComparison.inside,
-          left: DateTime(2022),
-          right: DateTime(2024));
+    final timeFilter = TernaryComparableFilterDimension(
+        debugPrintId: "time",
+        comparison: TernaryComparison.inside,
+        left: DateTime(2022),
+        right: DateTime(2024));
 
-      final iterable = IterableDimension(
-        debugPrintId: "iter",
-        reference: {1, 2, 3},
-        comparison: IterableComparison.subset,
-      );
-      final iterable2 = IterableDimension(
-        debugPrintId: "iter2",
-        reference: {1, 2, 3},
-        comparison: IterableComparison.strictSuperset,
-      );
+    final iterable = IterableDimension(
+      debugPrintId: "iter",
+      reference: {1, 2, 3},
+      comparison: IterableComparison.subset,
+    );
+    final iterable2 = IterableDimension(
+      debugPrintId: "iter2",
+      reference: {1, 2, 3},
+      comparison: IterableComparison.strictSuperset,
+    );
 
+    test('tree evaluation', () {
       x.add(
           sibling: first,
           operator: BinaryLogicalConnective.and,
@@ -85,6 +85,13 @@ void main() {
       data[iterable2] = {1, 2, 3};
 
       expect(x.evaluate(data), true);
+    });
+
+    test('filter removal', () async {
+      x.remove(iterable);
+      x.remove(first);
+      x.remove(second);
+      x.remove(iterable2);
     });
   });
 }

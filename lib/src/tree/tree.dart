@@ -100,6 +100,10 @@ class FilterTree {
   }
 
   void remove(FilterDimension dimension) {
+    if (root!.find(dimension) == null) {
+      throw ArgumentError("node ${dimension.debugPrintId} is not in tree");
+    }
+
     if (dimension == root) {
       root = TruthFilterDimension();
       _dimensions.remove(dimension);
@@ -110,9 +114,9 @@ class FilterTree {
 
     if (parent == root) {
       if (parent.left == dimension) {
-        parent.right = dimension;
+        root = parent.right;
       } else {
-        parent.left = dimension;
+        root = parent.left;
       }
       _dimensions.remove(dimension);
       return;
@@ -122,9 +126,9 @@ class FilterTree {
     final sibling = parent.left == dimension ? parent.right : parent.left;
 
     if (grandParent.left == parent) {
-      grandParent.right = sibling;
-    } else {
       grandParent.left = sibling;
+    } else {
+      grandParent.right = sibling;
     }
     _dimensions.remove(dimension);
   }
