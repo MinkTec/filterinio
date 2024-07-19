@@ -20,12 +20,15 @@ class FilterTree {
 
   final List<FilterDimension> _dimensions = [];
 
-  bool evaluate(Map<FilterDimension, dynamic> data) {
+  bool evaluate(
+    Map<FilterDimension, dynamic> data, {
+    bool valueOnInvalidData = false,
+  }) {
     if (!({...data.keys}.intersection({..._dimensions}).length ==
         _dimensions.length)) {
       throw ArgumentError("data map is invalid");
     }
-    return _evaluateNode(root!, data);
+    return _evaluateNode(root!, data, valueOnInvalidData);
   }
 
   String expressionString([FilterTreeNode? node]) {
@@ -53,11 +56,20 @@ class FilterTree {
     }
   }
 
-  bool _evaluateNode(FilterTreeNode node, Map<FilterDimension, dynamic> map) =>
-      node is OperatorTreeNode
-          ? node.operator.evaluate(
-              _evaluateNode(node.left, map), _evaluateNode(node.right, map))
-          : (node as FilterDimension).evaluate(map[node]);
+  bool _evaluateNode(FilterTreeNode node, Map<FilterDimension, dynamic> map,
+      bool valueOnInvalidData) {
+    if (node is OperatorTreeNode) {
+      return node.operator.evaluate(
+          _evaluateNode(node.left, map, valueOnInvalidData),
+          _evaluateNode(node.right, map, valueOnInvalidData));
+    } else {
+      try {
+        return (node as FilterDimension).evaluate(map[node]);
+      } catch (e) {
+        return valueOnInvalidData;
+      }
+    }
+  }
 
   void setRootFilterDimension(FilterDimension root) {
     this.root = root;
