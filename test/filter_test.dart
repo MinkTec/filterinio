@@ -55,7 +55,6 @@ void main() {
       final Map<FilterDimension, dynamic> data = {
         first: 1,
         second: 1,
-        // timeFilter: DateTime.now(),
         iterable: {2}
       };
 

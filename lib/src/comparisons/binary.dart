@@ -3,7 +3,7 @@ part of './comparisons.dart';
 typedef BinaryCompFunc<R extends S, T extends S, S extends Comparable<S>> = bool
     Function(R a, T b);
 
-enum BinaryComparison implements ComparisonEnum {
+enum BinaryComparison implements ComparisonEnum, Displayable {
   gt,
   geq,
   le,
@@ -30,4 +30,24 @@ enum BinaryComparison implements ComparisonEnum {
       T reference) {
     return (R value) => func<R, T, S>()(value, reference);
   }
+
+  @override
+  String get sign => switch (this) {
+        BinaryComparison.gt => '>',
+        BinaryComparison.geq => '≥',
+        BinaryComparison.le => '<',
+        BinaryComparison.leq => '≤',
+        BinaryComparison.eq => '=',
+        BinaryComparison.neq => '≠',
+      };
+
+  @override
+  String get label => switch (this) {
+        BinaryComparison.gt => 'greater',
+        BinaryComparison.geq => 'greater or equal',
+        BinaryComparison.le => 'less than',
+        BinaryComparison.leq => 'less or equal',
+        BinaryComparison.eq => 'equal',
+        BinaryComparison.neq => 'not equal',
+      };
 }

@@ -4,7 +4,7 @@ typedef TernaryCompFunc<Q extends T, R extends T, S extends T,
         T extends Comparable<T>>
     = bool Function(Q a, R b, S c);
 
-enum TernaryComparison implements ComparisonEnum {
+enum TernaryComparison implements ComparisonEnum, Displayable {
   inside,
   insideEq,
   outside,
@@ -31,4 +31,32 @@ enum TernaryComparison implements ComparisonEnum {
       predicate<Q extends S, R extends S, T extends S, S extends Comparable<S>>(
               R lower, T upper) =>
           (Q value) => func<Q, R, T, S>()(value, lower, upper);
+
+  @override
+  String get label {
+    switch (this) {
+      case TernaryComparison.inside:
+        return 'Inside';
+      case TernaryComparison.insideEq:
+        return 'Inside or Equal';
+      case TernaryComparison.outside:
+        return 'Outside';
+      case TernaryComparison.outsideEq:
+        return 'Outside or Equal';
+    }
+  }
+
+  @override
+  String get sign {
+    switch (this) {
+      case TernaryComparison.inside:
+        return '∈ ()';
+      case TernaryComparison.insideEq:
+        return '∈ []';
+      case TernaryComparison.outside:
+        return '∉ ()';
+      case TernaryComparison.outsideEq:
+        return '∉ []';
+    }
+  }
 }
