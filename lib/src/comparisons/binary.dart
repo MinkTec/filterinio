@@ -45,7 +45,7 @@ enum BinaryComparison implements ComparisonEnum, Displayable {
   String get label => switch (this) {
         BinaryComparison.gt => 'greater',
         BinaryComparison.geq => 'greater or equal',
-        BinaryComparison.le => 'less than',
+        BinaryComparison.le => 'less',
         BinaryComparison.leq => 'less or equal',
         BinaryComparison.eq => 'equal',
         BinaryComparison.neq => 'not equal',

@@ -37,8 +37,12 @@ class Bracket<T extends num> implements Comparable<Bracket> {
     assert(lower < upper);
   }
 
-  static const int maxInt = 0x7FFFFFFFFFFFFFFF;
-  static const int minInt = -0x8000000000000000;
+  static const int maxInt =
+      9007199254740991; // JavaScript's Number.MAX_SAFE_INTEGER
+  static const int minInt =
+      -9007199254740991; // JavaScript's Number.MIN_SAFE_INTEGER
+  // static const int maxInt = 0x7FFFFFFFFFFFFFFF;
+  // static const int minInt = -0x8000000000000000;
 
   @override
   String toString() {
